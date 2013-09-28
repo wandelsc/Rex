@@ -49,6 +49,7 @@ public final class R {
         public static final int descricao=0x7f060006;
         public static final int hello_world=0x7f060002;
         public static final int imagem=0x7f060005;
+        public static final int link=0x7f060007;
         public static final int titulo=0x7f060003;
     }
     public static final class style {

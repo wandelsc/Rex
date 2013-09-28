@@ -7,13 +7,15 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import android.content.ClipData.Item;
-
 public class RssHandler extends DefaultHandler {
 	private List<RssItem> list =
 				new ArrayList<RssItem>();
 	private RssItem current;
 	private StringBuffer content;
+	
+	public RssItem getItem(){
+		return list.get(0);
+	}
 	
 	@Override
 	public void startElement(String uri, String localName, String qName,
@@ -33,10 +35,28 @@ public class RssHandler extends DefaultHandler {
 	@Override
 	public void characters(char[] ch, int start, int length)
 			throws SAXException {
+		content.append(new String(ch,start,length));
 	}
 	@Override
 	public void endElement(String uri, String localName, String qName)
 			throws SAXException {
+		if (current != null){
+			if (localName.equalsIgnoreCase("item")){
+				current = null;
+			} 
+			else if (localName.equalsIgnoreCase("title")){
+				current.setTitle(content.toString());
+			}
+			else if (localName.equalsIgnoreCase("description")){
+				current.setDescription(content.toString());
+			}
+			else if (localName.equalsIgnoreCase("pubdate")){
+				current.setDate(content.toString());
+			}
+			else if (localName.equalsIgnoreCase("link")){
+				current.setLink(content.toString());
+			}
+		}
 	}
 	
 }

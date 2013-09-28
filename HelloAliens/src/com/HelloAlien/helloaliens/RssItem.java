@@ -1,11 +1,14 @@
 package com.HelloAlien.helloaliens;
 
+import android.graphics.Bitmap;
+
 public class RssItem {
 	private String title;	
 	private String description;	
 	private String date;	
 	private String imageUrl;
-	
+	private String Link;
+	private Bitmap image;
 	
 	public String getTitle() {
 		return title;
@@ -30,6 +33,18 @@ public class RssItem {
 	}
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
+	}
+	public String getLink() {
+		return Link;
+	}
+	public void setLink(String link) {
+		Link = link;
+	}
+	public Bitmap getImage() {
+		return image;
+	}
+	public void setImage(Bitmap image) {
+		this.image = image;
 	}
 	
 	
