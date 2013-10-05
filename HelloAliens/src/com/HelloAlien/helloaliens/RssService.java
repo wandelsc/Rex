@@ -1,5 +1,7 @@
 package com.HelloAlien.helloaliens;
 
+import java.net.URL;
+
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
@@ -31,7 +33,10 @@ public class RssService extends AsyncTask<RssHandler, Void, RssItem> {
 				XMLReader xr = sp.getXMLReader();
 				xr.setContentHandler(handler);
 				
-				xr.parse(new InputSource(activity.getAssets().open("image_of_the_day.xml")));
+				/*xr.parse(new InputSource(activity.getAssets().open("image_of_the_day.xml")));*/
+				
+				//exemplo para usar atualização internet
+				xr.parse(new InputSource(new URL("http://asd.rss").openStream()));
 				
 				item = handler.getItem();
 				item.setImage(BitmapFactory.decodeResource(activity.getResources(),R.drawable.hwb_oil_visualization_larc_2013));
@@ -44,6 +49,7 @@ public class RssService extends AsyncTask<RssHandler, Void, RssItem> {
 	
 	protected void onPostExecute(RssItem result) {
 		activity.displayData(result);		
+		progress.dismiss();
 	}
 	protected void onPreExecute() {
 		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB){
