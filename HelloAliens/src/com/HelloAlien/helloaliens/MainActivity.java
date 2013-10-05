@@ -12,6 +12,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        refresh();
     }
     
 
@@ -33,5 +34,10 @@ public class MainActivity extends Activity {
     			image.setImageBitmap(item.getImage());
     			description.setText(item.getDescription());
     	}
-    }    
+    }  
+    public void refresh(){
+    	displayData(null);
+    	RssService service = new RssService(this);
+    	service.execute(new RssHandler());
+    }
 }
