@@ -6,6 +6,7 @@ import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
+import android.app.ProgressDialog;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 
@@ -13,6 +14,7 @@ import android.os.AsyncTask;
 public class RssService extends AsyncTask<RssHandler, Void, RssItem> {
 	
 	private MainActivity activity;
+	private ProgressDialog progress;
 	
 	public RssService(MainActivity activity){
 		this.activity = activity;
@@ -42,5 +44,16 @@ public class RssService extends AsyncTask<RssHandler, Void, RssItem> {
 	
 	protected void onPostExecute(RssItem result) {
 		activity.displayData(result);		
+	}
+	protected void onPreExecute() {
+		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB){
+			progress = new ProgressDialog(activity, ProgressDialog.THEME_HOLO_DARK);
+		}
+		else{
+		progress = new ProgressDialog(activity);
+		}
+		progress.setIndeterminate(true);
+		progress.setMessage("Por Favor Aguarde(fazer uma string)");
+		progress.show();
 	}
 }
